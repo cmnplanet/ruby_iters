@@ -38,6 +38,7 @@ end
 # use .to_h. Also look at Hash#transform_values.
 def averages(grade_hash)
    grade_hash.transforms_values {|nums| nums.reduce(:+)/nums.size}
+
 end
 
 # Return a letter grade for a numerical score.
@@ -68,9 +69,19 @@ end
 
 # Return the average for the entire class.
 def class_average(grade_hash)
-  grade_hash
+  averages(grade_hash).vaues.reduce(:+) / grade_hash.length
 end
 
 # Return an array of the top `number_of_students` students.
 def top_students(grade_hash, number_of_students)
+  sorted_hash = averages(grade_hash).sort_by { | name, grade | grade }
+  sorted_hash.reverse!
+  # bang keeps array perm flipped
+  top_array = []
+  sorted_hash.each do | key, value |
+    top_array << key
+    # << shovel operator puts something into an array
+  end
+  # take grabs items in array
+  top_array.take(number_of_students)
 end
